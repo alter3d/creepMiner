@@ -106,7 +106,6 @@ Burst::PlotCheckResult Burst::isValidPlotFile(const std::string& filePath)
 			return PlotCheckResult::EmptyParameter;
 
 		volatile auto accountId = std::stoull(accountIdStr);
-		volatile auto nonceStart = std::stoull(nonceStartStr);
 		volatile auto nonceCount = std::stoull(nonceCountStr);
 		volatile auto staggerSize = std::stoull(staggerStr);
 
