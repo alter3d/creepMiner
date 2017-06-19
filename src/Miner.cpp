@@ -321,9 +321,9 @@ Burst::SubmitResponse Burst::Miner::addNewDeadline(uint64_t nonce, uint64_t acco
 
 	if (newDeadline)
 	{
-		log_unimportant_if(MinerLogger::miner, MinerLogger::hasOutput(NonceFound), "%s: nonce found (%s)\n"
-			"\tnonce: %Lu\n"
-			"\tin: %s",
+		log_unimportant_if(MinerLogger::miner, MinerLogger::hasOutput(NonceFound), "%s: nonce found (%s); "
+			"nonce: %Lu "
+			"in: %s",
 			newDeadline->getAccountName(), deadlineFormat(deadline), newDeadline->getNonce(), plotFile);
 
 		return SubmitResponse::Found;

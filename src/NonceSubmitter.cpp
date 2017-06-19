@@ -75,9 +75,9 @@ Burst::NonceConfirmation Burst::NonceSubmitter::submit()
 		{
 			deadline->send();
 			confirmation.errorCode = SubmitResponse::Submitted;
-			log_ok_if(MinerLogger::nonceSubmitter, MinerLogger::hasOutput(NonceSent), "%s: nonce submitted (%s)\n"
-				"\tnonce: %Lu\n"
-				"\tin %s",
+			log_ok_if(MinerLogger::nonceSubmitter, MinerLogger::hasOutput(NonceSent), "%s: nonce submitted (%s); "
+				"nonce: %Lu"
+				"in %s",
 				accountName, deadlineFormat(deadline->getDeadline()), deadline->getNonce(), deadline->getPlotFile());
 			firstSendAttempt = false;
 		}
@@ -141,9 +141,9 @@ Burst::NonceConfirmation Burst::NonceSubmitter::submit()
 				showConfirmation = bestConfirmed->getDeadline() > deadline->getDeadline();
 
 			if (showConfirmation)
-				log_success_if(MinerLogger::nonceSubmitter, MinerLogger::hasOutput(NonceConfirmed), "%s: nonce confirmed (%s)\n"
-					"\tnonce: %Lu\n"
-					"\tin %s",
+				log_success_if(MinerLogger::nonceSubmitter, MinerLogger::hasOutput(NonceConfirmed), "%s: nonce confirmed (%s); "
+					"nonce: %Lu "
+					"in %s",
 					accountName, deadlineFormat(deadline->getDeadline()), deadline->getNonce(), deadline->getPlotFile());
 
 			// we have to confirm it at the very last position

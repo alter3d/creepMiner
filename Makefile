@@ -1,4 +1,4 @@
-LOGGING   := terminal
+LOGGING   := service
 
 MODULES   := sphlib nxt
 SRC_DIR   := $(addprefix src/,$(MODULES)) src
