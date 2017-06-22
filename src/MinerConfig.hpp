@@ -100,6 +100,7 @@ namespace Burst
 		size_t getHttp() const;
 		const std::string& getConfirmedDeadlinesPath() const;
 		bool getStartServer() const;
+		bool getIsSlaveNode() const;
 		const Url& getServerUrl() const;
 		uint64_t getTargetDeadline() const;
 		uint32_t getMiningIntensity() const;
@@ -133,6 +134,7 @@ namespace Burst
 		Url urlMiningInfo_;
 		Url urlWallet_;
 		bool startServer_ = false;
+		bool isSlaveNode_ = false;
 		Url serverUrl_;
 		uint64_t targetDeadline_ = 0;
 		uint32_t miningIntensity_ = 1;

@@ -76,7 +76,7 @@ Burst::NonceConfirmation Burst::NonceSubmitter::submit()
 			deadline->send();
 			confirmation.errorCode = SubmitResponse::Submitted;
 			log_ok_if(MinerLogger::nonceSubmitter, MinerLogger::hasOutput(NonceSent), "%s: nonce submitted (%s); "
-				"nonce: %Lu"
+				"nonce: %Lu "
 				"in %s",
 				accountName, deadlineFormat(deadline->getDeadline()), deadline->getNonce(), deadline->getPlotFile());
 			firstSendAttempt = false;

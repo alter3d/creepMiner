@@ -400,6 +400,8 @@ bool Burst::MinerConfig::readConfigFile(const std::string& configPath)
 		auto maxPlotReaders = getOrAddAlt(miningObj, config, "maxPlotReaders", 0);
 		maxPlotReaders_ = maxPlotReaders;
 
+		isSlaveNode_ = getOrAddAlt(miningObj, config, "isSlaveNode", (bool)false);
+
 		// urls
 		{
 			Poco::JSON::Object::Ptr urlsObj;
@@ -844,6 +846,11 @@ const std::string& Burst::MinerConfig::getConfirmedDeadlinesPath() const
 bool Burst::MinerConfig::getStartServer() const
 {
 	return startServer_;
+}
+
+bool Burst::MinerConfig::getIsSlaveNode() const
+{
+	return isSlaveNode_;
 }
 
 uint64_t Burst::MinerConfig::getTargetDeadline() const

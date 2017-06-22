@@ -14,6 +14,7 @@
 #include "nxt/nxt_address.h"
 #include "Response.hpp"
 #include "Request.hpp"
+#include <Poco/Environment.h>
 #include <Poco/Net/HTTPClientSession.h>
 #include <Poco/Net/HTTPRequest.h>
 #include <Poco/JSON/Object.h>
@@ -48,6 +49,8 @@ void Burst::Miner::run()
 		return;
 	}
 
+	log_system(MinerLogger::miner, "Hostname: %s", Poco::Environment::nodeName());
+	log_system(MinerLogger::miner, "Is Slave: %s", (std::string)(config.getIsSlaveNode() ? "Yes" : "No"));
 	log_system(MinerLogger::miner, "Total plots size: %s", memToString(MinerConfig::getConfig().getTotalPlotsize(), 2));
 	log_system(MinerLogger::miner, "Submission Max Retry : %s",
 		config.getSubmissionMaxRetry() == 0u ? "unlimited" : std::to_string(config.getSubmissionMaxRetry()));
@@ -185,11 +188,7 @@ void Burst::Miner::updateGensig(const std::string gensigStr, uint64_t blockHeigh
 
 	// printing block info and transfer it to local server
 	{
-		log_notice(MinerLogger::miner, std::string(50, '-') + "\n"
-			"block#      %Lu\n"
-			"scoop#      %Lu\n"
-			"baseTarget# %Lu\n" +
-			std::string(50, '-'),
+		log_notice(MinerLogger::miner, "new block# %Lu, scoop# %Lu, baseTarget# %Lu",
 			blockHeight, block->getScoop(), baseTarget
 		);
 
@@ -360,8 +359,15 @@ bool Burst::Miner::getMiningInfo()
 		miningInfoSession_ = MinerConfig::getConfig().getMiningInfoUrl().createSession();
 
 	Request request(std::move(miningInfoSession_));
+	auto& config = MinerConfig::getConfig();
 
 	HTTPRequest requestData { HTTPRequest::HTTP_GET, "/burst?requestType=getMiningInfo", HTTPRequest::HTTP_1_1 };
+
+	if ( config.getIsSlaveNode() ) {
+		requestData.set(X_SlaveName, Poco::Environment::nodeName());
+		requestData.set(X_Capacity, std::to_string(PlotSizes::getTotal()));
+	}
+
 	requestData.setKeepAlive(true);
 
 	auto response = request.send(requestData);
