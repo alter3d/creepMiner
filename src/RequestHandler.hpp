@@ -49,18 +49,6 @@ namespace Burst
 		const TemplateVariables* variables_;
 	};
 
-	class ShutdownHandler : public Poco::Net::HTTPRequestHandler
-	{
-	public:
-		ShutdownHandler(Miner& miner, MinerServer& server);
-		~ShutdownHandler() override = default;
-		void handleRequest(Poco::Net::HTTPServerRequest& request, Poco::Net::HTTPServerResponse& response) override;
-
-	private:
-		Miner* miner_;
-		MinerServer* server_;
-	};
-
 	class AssetHandler : public Poco::Net::HTTPRequestHandler
 	{
 	public:

@@ -199,10 +199,6 @@ Poco::Net::HTTPRequestHandler* Burst::MinerServer::RequestFactory::createRequest
 		if (uri.getPath() == "/")
 			return new RootHandler{server_->variables_};
 
-		// shutdown everything
-		if (uri.getPath() == "/shutdown")
-			return new ShutdownHandler{*server_->miner_, *server_};
-
 		// forward function
 		if (uri.getPath() == "/burst")
 		{
