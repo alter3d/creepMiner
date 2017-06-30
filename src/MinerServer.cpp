@@ -215,7 +215,7 @@ Poco::Net::HTTPRequestHandler* Burst::MinerServer::RequestFactory::createRequest
 			
 			// just forward whatever the request is to the wallet
 			// why wallet? because the only requests to a pool are getMiningInfo and submitNonce and we handled them already
-			return new ForwardHandler{MinerConfig::getConfig().createSession(HostType::Wallet)};
+			//return new ForwardHandler{MinerConfig::getConfig().createSession(HostType::Wallet)};
 		}
 
 		Path path{"public"};
